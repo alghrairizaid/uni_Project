@@ -1,0 +1,38 @@
+<!-- templates/doctor/doctor_dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div >
+        <h2 class="mb-0">Welcome Dr. {{ doctor.first_name }}!</h2>
+    </div>
+    <h4>Your Appointments</h4>
+    {% if appointments %}
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Patient</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Fee</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</td>
+                <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ appointment.time.strftime('%H:%M') }}</td>
+                <td>${{ appointment.fee }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>You have no appointments scheduled.</p>
+    {% endif %}
+</div>
+{% endblock %}

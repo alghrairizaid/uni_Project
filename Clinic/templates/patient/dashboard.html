@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3>Your Appointments</h3>
+    {% if appointments %}
+        <ul>
+        {% for appointment in appointments %}
+            <li>{{ appointment.date }} with Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no appointments scheduled.</p>
+    {% endif %}
+    <a href="{{ url_for('book_appointment') }}" class="btn btn-success">Book a New Appointment</a>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+<!-- templates/patient/book_appointment.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Book Appointment</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('book_appointment') }}">
+                        {{ form.hidden_tag() }}
+
+                        <div class="form-group mb-3">
+                            {{ form.doctor_id.label(class="form-label") }}
+                            {{ form.doctor_id(class="form-select") }}
+                            {% if form.doctor_id.errors %}
+                                {% for error in form.doctor_id.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form.date.label(class="form-label") }}
+                            {{ form.date(class="form-control", type="date") }}
+                            {% if form.date.errors %}
+                                {% for error in form.date.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form.time.label(class="form-label") }}
+                            {{ form.time(class="form-control", type="time") }}
+                            {% if form.time.errors %}
+                                {% for error in form.time.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label">Consultation Fee</label>
+                            <input type="text" class="form-control" id="consultation_fee" readonly>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            {{ form.submit(class="btn btn-primary btn-block") }}
+                            <a href="{{ url_for('patient_dashboard') }}" class="btn btn-secondary btn-block">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const doctorSelect = document.getElementById('doctor_id');
+    const feeInput = document.getElementById('consultation_fee');
+    
+    function updateFee() {
+        const doctorId = doctorSelect.value;
+        if (doctorId) {
+            fetch(`/get_doctor_fee/${doctorId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fee) {
+                        feeInput.value = `$${data.fee}`;
+                    } else {
+                        feeInput.value = 'Fee not available';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    feeInput.value = 'Error loading fee';
+                });
+        } else {
+            feeInput.value = '';
+        }
+    }
+    
+    // Update fee when doctor selection changes
+    doctorSelect.addEventListener('change', updateFee);
+    
+    // Initial fee update if a doctor is pre-selected
+    if (doctorSelect.value) {
+        updateFee();
+    }
+});
+</script>
+{% endblock %}

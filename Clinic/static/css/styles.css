@@ -1,0 +1,116 @@
+/* styles.css */
+
+/* General Styles */
+body {
+    background-color: #f4f6f9;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Navbar Customization */
+.navbar-custom {
+    background-color: #2C3E50;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #ecf0f1;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #3498db;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100vh;
+    background-color: #34495e;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    color: #ecf0f1;
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #2980b9;
+    color: #ffffff;
+}
+
+/* Content Styles */
+.content {
+    padding: 20px;
+}
+
+/* Cards */
+.card-custom {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Tables */
+.table-custom {
+    background-color: #ffffff;
+}
+
+.table-custom thead {
+    background-color: #2C3E50;
+    color: #ffffff;
+}
+
+.table-custom tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: none;
+}
+
+/* Buttons */
+.btn-custom {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-custom:hover {
+    background-color: #2980b9;
+    color: #ffffff;
+}
+
+/* Footer */
+.footer {
+    background-color: #2C3E50;
+    color: #ecf0f1;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.sidebar a.active {
+    background-color: #495057;
+    font-weight: bold;
+}
+/* static/css/styles.css */
+
+/* يمكن إضافة أنماط مخصصة هنا */
+
+/* مثال: تعديل حجم الخط في الجداول */
+table {
+    font-size: 14px;
+}
+
+/* مثال: تخصيص حجم الأزرار */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    
+    <!-- Welcome Message -->
+    <div >
+        <h3 class="mb-0">Welcome {{ patient.first_name }}!</h3>
+    </div>
+    <h4>Your Appointments</h4>
+    {% if appointments %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
+                    <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ appointment.time.strftime('%H:%M') }}</td>
+                    <td>${{ appointment.fee }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have no appointments scheduled.</p>
+    {% endif %}
+    <a href="{{ url_for('book_appointment') }}" class="btn btn-success">Book a New Appointment</a>
+</div>
+{% endblock %}

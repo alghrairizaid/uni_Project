@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Appointments</h2>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Fee</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</td>
+                <td>{{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
+                <td>{{ appointment.date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ appointment.time.strftime('%H:%M') }}</td>
+                <td>${{ appointment.fee }}</td>
+                <td>
+                    <form action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}" method="post" class="status-form">
+                        <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="pending" {% if appointment.status == 'pending' %}selected{% endif %}>Pending</option>
+                            <option value="confirmed" {% if appointment.status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+                            <option value="cancelled" {% if appointment.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                            <option value="completed" {% if appointment.status == 'completed' %}selected{% endif %}>Completed</option>
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('delete_appointment', appointment_id=appointment.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+.status-form {
+    margin: 0;
+}
+.form-select-sm {
+    padding: 0.25rem 1rem;
+    font-size: 0.875rem;
+}
+</style>
+{% endblock %}
